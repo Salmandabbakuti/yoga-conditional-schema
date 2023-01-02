@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../server.ts"],
-  "sourcesContent": ["import { createServer } from 'http';\nimport { createSchema, createYoga } from 'graphql-yoga';\n\nconst publicSchema = createSchema({\n  typeDefs: `\n    type Query {\n      public: String\n    }`,\n  resolvers: {\n    Query: {\n      public: () => 'Hello From Public Schema!'\n    }\n  }\n});\n\nconst privateSchema = createSchema({\n  typeDefs: `\n    type Query {\n      private: String\n    }`,\n  resolvers: {\n    Query: {\n      private: () => 'Hello From Private Schema!'\n    }\n  }\n});\n\nconst isAuthenticated = (request: any) => request.headers.get(\"authorization\");\n\n\nconst yoga = createYoga({\n  schema: ({ request }) => (isAuthenticated(request) ? privateSchema : publicSchema),\n  graphqlEndpoint: '/',\n  maskedErrors: false\n});\n\nconst server = createServer(yoga);\n\nserver.listen(4000, () => console.log('\uD83D\uDD25 Server started listening at http://localhost:4000 \uD83D\uDE80'));"],
-  "mappings": ";AAAA,kBAA6B;AAC7B,0BAAyC;AAEzC,MAAM,mBAAe,kCAAa;AAAA,EAChC,UAAU;AAAA;AAAA;AAAA;AAAA,EAIV,WAAW;AAAA,IACT,OAAO;AAAA,MACL,QAAQ,MAAM;AAAA,IAChB;AAAA,EACF;AACF,CAAC;AAED,MAAM,oBAAgB,kCAAa;AAAA,EACjC,UAAU;AAAA;AAAA;AAAA;AAAA,EAIV,WAAW;AAAA,IACT,OAAO;AAAA,MACL,SAAS,MAAM;AAAA,IACjB;AAAA,EACF;AACF,CAAC;AAED,MAAM,kBAAkB,CAAC,YAAiB,QAAQ,QAAQ,IAAI,eAAe;AAG7E,MAAM,WAAO,gCAAW;AAAA,EACtB,QAAQ,CAAC,EAAE,QAAQ,MAAO,gBAAgB,OAAO,IAAI,gBAAgB;AAAA,EACrE,iBAAiB;AAAA,EACjB,cAAc;AAChB,CAAC;AAED,MAAM,aAAS,0BAAa,IAAI;AAEhC,OAAO,OAAO,KAAM,MAAM,QAAQ,IAAI,uEAAyD,CAAC;",
-  "names": []
-}

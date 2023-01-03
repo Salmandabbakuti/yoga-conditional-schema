@@ -25,7 +25,7 @@ const privateSchema = createSchema({
   }
 });
 
-const isAuthenticated = (request: any) => request.headers.get("authorization");
+const isAuthenticated = (request: Request) => request.headers.get("authorization");
 
 
 const yoga = createYoga({
